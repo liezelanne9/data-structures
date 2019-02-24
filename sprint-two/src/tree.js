@@ -31,8 +31,8 @@ treeMethods.contains = function(target) {
 
     if ((this.children[i]).value === target) {
         return true;
-    } else {
-        return this.children[i].contains(target);
+    } else if (this.children[i].contains(target) === true) {
+        return true;
     }
   }
   return false;
@@ -43,3 +43,4 @@ treeMethods.contains = function(target) {
 /*
  * Complexity: What is the time complexity of the above functions?
  */
+
