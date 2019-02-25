@@ -9,7 +9,7 @@ var Graph = function() {
 Graph.prototype.addNode = function(node) {
     var newNode = {};
     newNode.value = node;
-    newNode.edge = {};
+    newNode.edge = [];
     this.nodes.push(newNode);
     
     return this.nodes;
@@ -29,14 +29,20 @@ Graph.prototype.contains = function(node) {
 Graph.prototype.removeNode = function(node) {
     var removed;
     for (var i = 0; i < this.nodes.length; i++) {
-        if (this.nodes[i].edge.value === node) {
-            this.nodes[i].edge = {};
+        // if (this.nodes[i].edge.value === node) {
+        //     this.nodes[i].edge = {};
+        // }
+        for (var j = 0; j < this.nodes[i].edge.length; j++) {
+            if (this.nodes[i].edge[j].value === node) {
+                this.nodes[i].edge.splice(j, 1);
+            }
         }
         if (this.nodes[i].value === node) {
             removed = this.nodes[i].value;
             this.nodes.splice(i, 1);
         }
     }
+    
     return removed;
 };
 
@@ -56,7 +62,12 @@ Graph.prototype.hasEdge = function(fromNode, toNode) {
     if (!firstNode || !secondNode) {
         return false;
     }
-    return firstNode.edge.value === secondNode.value;
+    for (var j = 0; j < firstNode.edge.length; j++) {
+        if (firstNode.edge[j].value === toNode) {
+            return true;
+        }
+    }
+    return false;
 };
 
 // Connects two nodes in a graph by adding an edge between them.
@@ -71,8 +82,8 @@ Graph.prototype.addEdge = function(fromNode, toNode) {
             secondNode = this.nodes[i];
         }
     }
-    firstNode.edge = secondNode;
-    secondNode.edge = firstNode;
+    firstNode.edge.push(secondNode);
+    secondNode.edge.push(firstNode);
     console.log(this.nodes);
 };
 
@@ -88,6 +99,7 @@ Graph.prototype.removeEdge = function(fromNode, toNode) {
             secondNode = this.nodes[i];
         }
     }
+
     firstNode.edge = {};
     secondNode.edge = {};
     console.log(this.nodes);
