@@ -4,4 +4,6 @@
 **/lib
 **/vendor
 **/*.min.js
+**/sprint-one
+**/sprint-two
 sprint-one/spec/verifyClass.js
