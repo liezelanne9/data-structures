@@ -24,5 +24,4 @@ stackMethods.pop = function (value) {
 
 stackMethods.size = function (value) {
   return this.nextKey;
-}
-
+};
