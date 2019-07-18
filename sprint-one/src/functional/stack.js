@@ -1,22 +1,28 @@
-var Stack = function() {
-  var someInstance = {};
+/* eslint-disable func-names */
+const Stack = function () {
+  const someInstance = {};
 
   // Use an object with numeric keys to store values
-  var storage = {};
+  const storage = {};
+  let nextKey = 0;
 
   // Implement the methods below
-  someInstance.push = function(value) {
-    storage[(Object.keys(storage).length).toString()] = value;
+  someInstance.push = function (value) {
+    storage[nextKey] = value;
+    nextKey += 1;
   };
 
-  someInstance.pop = function() {
-    var deleted = storage[(Object.keys(storage).length - 1).toString()]
-    delete storage[(Object.keys(storage).length - 1).toString()];
-    return deleted;
+  someInstance.pop = function () {
+    if (nextKey > 0) {
+      const popped = storage[nextKey - 1];
+      delete storage[nextKey - 1];
+      nextKey -= 1;
+      return popped;
+    }
   };
 
-  someInstance.size = function() {
-    return Object.keys(storage).length;
+  someInstance.size = function () {
+    return nextKey;
   };
 
   return someInstance;
